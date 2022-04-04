@@ -29,9 +29,6 @@ spec:
         - name: redis
           image: 589672229908.dkr.ecr.us-east-2.amazonaws.com/ocu-native-staging-redis
           imagePullPolicy: IfNotPresent
-          envFrom:
-            - secretRef:
-                name: secrets-main
       imagePullSecrets:
         - name: secrets-aws
       restartPolicy: Always
