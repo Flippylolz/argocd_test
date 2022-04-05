@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: redis
+    service: redis
+  name: redis
+  namespace: ocu--staging-webapp
+spec:
+  selector:
+    matchLabels:
+      app: redis
+      service: redis
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 50%
+  minReadySeconds: 10
+  template:
+    metadata:
+      labels:
+        app: redis
+        service: redis
+    spec:
+      terminationGracePeriodSeconds: 5
+      containers:
+        - name: redis
+          image: 589672229908.dkr.ecr.us-east-2.amazonaws.com/ocu-native-staging-redis
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
